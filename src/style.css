@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #0f172a;
+    color: white;
+  }
+}
+
+/* Vue Transition Classes */
+.slide-up-move,
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.5s ease;
+}
+
+.slide-up-enter-from {
+  opacity: 0;
+  transform: translateY(100px);
+}
+
+.slide-up-leave-to {
+  opacity: 0;
+  transform: translateY(-100px);
+}
+
+.slide-up-leave-active {
+  position: absolute;
+  width: 100%;
+}
+
+.fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.fade-leave-active {
+  transition: all 0.3s ease-in;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
