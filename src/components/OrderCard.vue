@@ -2,14 +2,20 @@
   <div class="bg-white rounded-xl shadow-lg border border-slate-200 p-4 transition-all duration-300 hover:shadow-xl max-w-full w-full">
     <div class="flex items-start justify-between">
       <div class="flex-1">
-        <div class="flex items-center gap-2 mb-2">
+        <div class="flex items-center gap-4 mb-4">
           <div :class="`w-8 h-8 rounded-full flex items-center justify-center ${getAvatarColor(index)}`">
             <span class="font-medium text-sm">
-              {{ getInitials(order.studentName) }}
+              {{ getInitials(order.studentName) }} 
+             
             </span>
           </div>
           <div>
-            <h3 class="font-semibold text-slate-800">{{ order.studentName }}</h3>
+            <div class="flex  gap-1">
+              <h3 class="font-semibold text-slate-800">{{ order.studentName }}</h3>
+              <div class="align-bottom">
+                <span class="text-xs text-slate-400">{{ matricula[0] }}</span>
+              </div>
+            </div>
             <div class="flex items-center gap-2 text-xs text-slate-500">
               <span
                 v-for="(type, idx) in types"
@@ -22,29 +28,29 @@
           </div>
         </div>
         
-        <div class="text-sm text-slate-600 mb-3">
+        <!-- <div class="text-sm text-slate-600 mb-3">
           {{ order.details }}
-        </div>
+        </div> -->
       </div>
       
       <div class="text-right ml-4">
-        <div class="text-xs text-slate-400 mb-1">Ordered</div>
+        <div class="text-xs text-slate-400 mb-1">Pedido feito</div>
         <div class="text-sm font-medium text-slate-700">
           {{ formatTime(order.createdAt) }}
         </div>
-        <div class="text-xs text-slate-400">Today</div>
+        <div class="text-xs text-slate-400">Hoje</div>
       </div>
     </div>
     
-    <div class="flex items-center justify-between pt-3 border-t border-slate-100">
-      <div class="flex items-center gap-2">
-        <div :class="`w-2 h-2 rounded-full ${getStatusColor(order.status)}`"></div>
-        <span class="text-xs font-medium text-slate-600">
-          {{ getStatusText(order.status) }}
-        </span>
-      </div>
+    <div class="flex items-center justify-between pt-2 border-t border-slate-100">
       <div class="text-xs text-slate-400">
         #{{ String(index + 1).padStart(3, '0') }}
+      </div>
+      <div class="flex items-center gap-2">
+        <!-- <div :class="`w-2 h-2 rounded-full ${getStatusColor(order.status)}`"></div> -->
+        <span class="text-xs text-slate-400">
+          ID: {{ order.id.slice(0,4) }}
+        </span>
       </div>
     </div>
   </div>
@@ -62,6 +68,7 @@ interface Props {
 const props = defineProps<Props>()
 
 const getInitials = (name: string): string => {
+  console.log(name)
   return name
     .split(" ")
     .map(word => word[0])
@@ -132,5 +139,6 @@ const formatTime = (date: Date | string): string => {
 }
 
 const types = computed(() => props.order.orderType.split("/"))
+const matricula = computed(() => props.order.details.split("/"))
 const typeColors = computed(() => getTypeColor(props.order.orderType))
 </script>

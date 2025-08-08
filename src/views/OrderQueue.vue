@@ -5,12 +5,12 @@
       <div class="max-w-md mx-auto px-4 py-4">
         <div class="flex items-center justify-between">
           <div>
-            <h1 class="text-xl font-semibold text-white">Order Queue</h1>
-            <p class="text-sm text-slate-400">Manage student orders</p>
+            <h1 class="text-xl font-semibold text-white">Pedidos</h1>
+            <p class="text-sm text-slate-400">Distribuição de merenda</p>
           </div>
           <div class="text-right">
             <div class="text-2xl font-bold text-blue-400">{{ totalOrders }}</div>
-            <div class="text-xs text-slate-400">Total Orders</div>
+            <div class="text-xs text-slate-400">Total</div>
           </div>
         </div>
       </div>
@@ -53,7 +53,7 @@
         >
           <div class="flex items-center justify-center gap-2">
             <span>
-              {{ isPending ? "Processing..." : "Next Order" }}
+              {{ isPending ? "Processando.." : "Próximo" }}
             </span>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -73,23 +73,24 @@ import { useApi } from '@/composables/useApi'
 import type { Order } from '@/types/order'
 
 const queryClient = useQueryClient()
-const { fetchOrders, moveOrderToEnd } = useApi()
+const { fetchOrders, nextOrder } = useApi()
 
-const { data: orders = [], isLoading } = useQuery<Order[]>({
+
+const { data: orders, isLoading } = useQuery<Order[]>({
   queryKey: ['orders'],
   queryFn: fetchOrders,
-  refetchInterval: 5000, // Refetch every 5 seconds for real-time updates
+  // refetchInterval: 5000, // Refetch every 5 seconds for real-time updates
 })
-
 const { mutate: nextOrderMutation, isPending } = useMutation({
-  mutationFn: moveOrderToEnd,
+  // mutationFn: moveOrderToEnd,
+  mutationFn: nextOrder,
   onSuccess: () => {
     queryClient.invalidateQueries({ queryKey: ['orders'] })
   },
 })
 
-const visibleOrders = computed(() => orders.value.slice(0, 5))
-const totalOrders = computed(() => orders.value.length)
+const visibleOrders = computed(() => (orders?.value ?? []).slice(0, 7))
+const totalOrders = computed(() => (orders?.value ?? []).length)
 
 const handleNextOrder = () => {
   if (visibleOrders.value.length > 0) {
