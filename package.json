@@ -12,6 +12,7 @@
     "@tanstack/vue-query": "^5.17.0",
     "axios": "^1.6.0",
     "date-fns": "^3.0.0",
+    "lucide-vue-next": "^0.539.0",
     "vue": "^3.4.0",
     "vue-router": "^4.2.0"
   },
