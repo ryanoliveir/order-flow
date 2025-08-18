@@ -2,7 +2,7 @@ import axios from "axios";
 import type { Order } from "@/types/order";
 import { formatOrders } from "@/utils";
 
-const API_URL = "http://192.168.15.29:3000";
+const API_URL = "http://192.168.15.90:3000";
 
 const api = axios.create({
   baseURL: API_URL,
