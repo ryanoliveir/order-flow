@@ -5,7 +5,7 @@
 
     <header class="fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-sm border-b border-slate-700">
 
-      
+    <div class="relative w-full">
       <div class="max-w-md mx-auto px-4 py-4 relative">
         <div class="flex items-center justify-between">
           <div>
@@ -18,18 +18,18 @@
             <div class="text-xs text-slate-400">Total</div>
           </div>
         </div>
-
+        
         <!-- Button fixed to top-right of the header -->
       </div>
+      <button @click="toggleFullscreen"
+        class="absolute p-2 rounded-lg inset-y-0 my-auto right-6 h-fit hover:bg-slate-700 transition">
+        <Maximize v-if="!isFullscreen" :size="25" />
+        <Minimize v-else :size="25" />
+    </button>
+    </div>  
     
     
     </header>
-
-    <button @click="toggleFullscreen"
-        class="absolute top-[85%] right-4 -translate-y-1/2 p-2 rounded-lg hover:bg-slate-700 transition">
-        <Maximize v-if="!isFullscreen" :size="25" />
-        <Minimize v-else :size="25" />
-      </button>
 
     <!-- Order List -->
     <main class="flex-1 pt-24 pb-24 px-4">
